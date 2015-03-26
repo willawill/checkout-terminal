@@ -7,7 +7,11 @@ module CheckoutTerminal
     end
 
     def add(item)
-      @container[item.product_code] = { item.unit => item.price }
+      if @container[item.product_code].nil?
+        @container[item.product_code] = { item.unit => item.price }
+      else
+        @container[item.product_code][item.unit] = item.price
+      end
     end
   end
 end
