@@ -17,7 +17,7 @@ module CheckoutTerminal
       context "when the product doesn't exist in the system" do
         it "adds new item when a new product code comes in" do
           subject.add(price_item_for_A)
-          expect(subject.container).to eq( {"A" => { "3" => "5" } })
+          expect(subject.container).to eq( {"A" => { 3 => 5 } })
         end
       end
 
@@ -26,8 +26,16 @@ module CheckoutTerminal
           subject.add(price_item_for_A)
           subject.add(another_price_item_for_A)
 
-          expect(subject.container).to eq( { "A" => { "3" => "5", "1" => "3" } })
+          expect(subject.container).to eq( { "A" => { 1 => 3, 3 => 5 } })
         end
+      end
+    end
+
+    describe "#get_price_for_product" do
+      it "returns the hash of all the prices" do
+        subject.add(price_item_for_A)
+
+        expect(subject.get_price_for("A")).to eq({ 3 => 5 })
       end
     end
   end
