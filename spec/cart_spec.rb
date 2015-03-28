@@ -29,5 +29,14 @@ module CheckoutTerminal
         end
       end
     end
+
+    describe "#get_all_products" do
+      it "returns an array of all the product in the cart" do
+        subject.add("A")
+        subject.add("B")
+
+        expect(subject.get_all_products).to eq(["A", "B"])
+      end
+    end
   end
 end

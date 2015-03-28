@@ -26,12 +26,12 @@ module CheckoutTerminal
           subject.add(price_item_for_A)
           subject.add(another_price_item_for_A)
 
-          expect(subject.container).to eq( { "A" => { 1 => 3, 3 => 5 } })
+          expect(subject.container).to eq( { "A" => { 3 => 5, 1 => 3 } })
         end
       end
     end
 
-    describe "#get_price_for_product" do
+    describe "#get_price_for" do
       it "returns the hash of all the prices" do
         subject.add(price_item_for_A)
 
