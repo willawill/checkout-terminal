@@ -13,5 +13,9 @@ module CheckoutTerminal
     def get_volume_for(item)
       @container[item]
     end
+
+    def get_all_products
+      @container.keys
+    end
   end
 end

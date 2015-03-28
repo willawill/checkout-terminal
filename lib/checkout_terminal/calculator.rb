@@ -1,32 +1,25 @@
 module CheckoutTerminal
   class Calculator
-    attr_accessor :price_map, :cart
-
+    attr_reader :price_map, :cart
     def initialize(price_map, cart)
       @price_map = price_map
       @cart = cart
     end
 
-    def get_unit_combination(product)
-      units = @price_map.get_price_for(product).keys
+    def calculate_for(product)
+      raise "Product doesn't exist" if @price_map.get_price_for(product).nil?
+      result = 0
+      prices = @price_map.get_price_for(product)
       volume = @cart.get_volume_for(product)
-      units.map do |unit|
-        number = 0
-        while volume >= unit do
-          number = number + 1
-          volume = volume - unit
-        end
-        number
+      prices.each do |unit, price|
+        result += price * (volume / unit)
+        volume = volume % unit
       end
+      result
     end
 
     def calculate_total
-      sum = 0
-      @cart.container.each do |item, volume|
-        results = @price_map.get_price_for(item).values().zip(get_unit_combination(item))
-        sum += results.inject(0){ |acc, pair| acc += pair[0] * pair[1]}
-      end
-      sum
+      @cart.get_all_products.inject(0) { |acc, product| acc += calculate_for(product) }
     end
   end
 end

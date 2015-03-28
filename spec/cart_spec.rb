@@ -14,12 +14,17 @@ module CheckoutTerminal
           subject.add("A")
           expect(subject.container).to eq({ "A" => 1 })
         end
+
+        it "adds new product to the container" do
+          subject.add("A")
+          subject.add("B")
+          expect(subject.container).to eq({ "A" => 1, "B" => 1 })
+        end
       end
 
       context "when the product exists in the cart" do
         it "updates the cart by incrementing the number of the product by one" do
-          subject.add("A")
-          subject.add("A")
+          2.times { subject.add("A") }
           expect(subject.container).to eq({ "A" => 2 })
         end
       end

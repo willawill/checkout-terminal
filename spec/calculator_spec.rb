@@ -1,11 +1,12 @@
 module CheckoutTerminal
   RSpec.describe Calculator do
-    let(:price_units) { { 4 => 7, 1 => 2} }
+    let(:price_units) { { 4 => 7, 1 => 2 } }
     let(:price_map) do
-      instance_double(PriceMap, get_price_for: price_units)
+      instance_double(PriceMap, get_price_for: nil )
     end
 
-    let(:cart) { instance_double(Cart) }
+    let(:cart) { instance_double(Cart, get_volume_for: 10, get_all_products: ["A", "B"] ) }
+
     subject { Calculator.new(price_map, cart) }
 
     describe "#initialize" do
@@ -15,13 +16,44 @@ module CheckoutTerminal
       end
     end
 
-    describe "#get_unit_combination" do
-      it "returns an array of the number of each unit" do
-        allow(price_map).to receive(:get_price_for).and_return(price_units)
-        allow(cart).to receive(:get_volume_for).and_return(1)
+    describe "#calculate_for" do
+      it "raises an exception when the product doesn't exist" do
+        expect{ subject.calculate_for("FOO") }.to raise_error("Product doesn't exist")
+      end
 
-        combo = subject.get_unit_combination("A")
-        expect(combo).to eq([0, 1])
+      context 'when the product exists in the system' do
+        before do
+          allow(price_map).to receive(:get_price_for).and_return(price_units)
+        end
+
+        it "gets all the price units from price_map" do
+          expect(price_map).to receive(:get_price_for).with("A")
+          subject.calculate_for("A")
+        end
+
+        it "gets the volume of the product in the cart" do
+          expect(cart).to receive(:get_volume_for).with("A")
+          subject.calculate_for("A")
+        end
+
+        it "satisfies the bulk price first" do
+          expect(subject.calculate_for("A")).to eq(18)
+        end
+      end
+    end
+
+    describe "#calculate_total" do
+      before do
+        allow(subject).to receive(:calculate_for).and_return(10)
+      end
+
+      it "adds prices for all the product" do
+        expect(subject).to receive(:calculate_for).twice
+        subject.calculate_total
+      end
+
+      it "returns the total price of the cart" do
+        expect(subject.calculate_total).to eq(20)
       end
     end
   end
