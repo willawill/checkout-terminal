@@ -7,7 +7,8 @@ module CheckoutTerminal
     end
 
     def calculate_for(product)
-      raise "Product doesn't exist" if @price_map.get_price_for(product).nil?
+      raise "Product #{product} doesn't exist" if @price_map.get_price_for(product).nil?
+
       result = 0
       prices = @price_map.get_price_for(product)
       volume = @cart.get_volume_for(product)

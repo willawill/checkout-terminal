@@ -15,9 +15,9 @@ module CheckoutTerminal
       end
     end
 
-    def start_scan(item_list)
-      item_list.split("").each do |item|
-        @cart.add(item)
+    def set_cart(item_list)
+      item_list.split("\n").each do |item|
+        @cart.add(item.strip)
       end
     end
 

@@ -36,7 +36,7 @@ module CheckoutTerminal
 
     describe "#scan_item" do
       it "reads a stream of items and add to the cart" do
-        subject.start_scan(item_list)
+        subject.set_cart(item_list)
         expect(subject.cart.get_volume_for("C")).to eq(7)
       end
     end
@@ -48,7 +48,7 @@ module CheckoutTerminal
         .each do |item_list, total_price|
         it "returns the total price for the list of #{item_list}" do
           subject.set_price(price_input)
-          subject.start_scan(item_list)
+          subject.set_cart(item_list)
           total = subject.checkout
 
           expect(total).to eq(total_price)
