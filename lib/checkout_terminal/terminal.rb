@@ -15,8 +15,8 @@ module CheckoutTerminal
       end
     end
 
-    def set_cart(item_list)
-      break_with_new_line(item_list).each do |item|
+    def set_cart(input)
+      break_with_new_line(input).each do |item|
         @cart.add(item.strip)
       end
     end

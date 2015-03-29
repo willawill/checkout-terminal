@@ -34,7 +34,7 @@ module CheckoutTerminal
       end
     end
 
-    describe "#scan_item" do
+    describe "#set_cart" do
       it "reads a stream of items and add to the cart" do
         subject.set_cart(item_list)
         expect(subject.cart.quantity_for("C")).to eq(7)
@@ -45,7 +45,8 @@ module CheckoutTerminal
        {
         %Q{C\nC\nC\nC\nC\nC\nC\n}=> 7.25,
         %Q{A\nB\nC\nD\nA\nB\nA\nA\n} => 32.40,
-        %Q{A\nB\nC\nD\n} => 15.40 }
+        %Q{A\nB\nC\nD\n} => 15.40,
+        %Q{} => 0 }
         .each do |item_list, total_price|
         it "returns the total price for the list of #{item_list.split("\n").join("")}" do
           subject.set_price(price_input)
