@@ -5,7 +5,7 @@ module CheckoutTerminal
       instance_double(PriceMap, price_for: nil )
     end
 
-    let(:cart) { instance_double(Cart, volume_for: 10, all_products: ["A", "B"] ) }
+    let(:cart) { instance_double(Cart, quantity_for: 10, all_products: ["A", "B"] ) }
 
     subject { Calculator.new(price_map, cart) }
 
@@ -32,7 +32,7 @@ module CheckoutTerminal
         end
 
         it "gets the volume of the product in the cart" do
-          expect(cart).to receive(:volume_for).with("A")
+          expect(cart).to receive(:quantity_for).with("A")
           subject.calculate_for("A")
         end
 

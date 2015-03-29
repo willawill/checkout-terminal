@@ -10,7 +10,7 @@ module CheckoutTerminal
       @container[product] = @container[product] + 1
     end
 
-    def volume_for(product)
+    def quantity_for(product)
       @container[product]
     end
 
