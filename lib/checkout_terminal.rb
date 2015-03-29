@@ -8,8 +8,8 @@ def require_helper(path)
   end
 end
 
+require_helper("/")
 
 module CheckoutTerminal
 end
 
-require_helper("/")
