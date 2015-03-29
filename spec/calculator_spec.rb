@@ -2,10 +2,10 @@ module CheckoutTerminal
   RSpec.describe Calculator do
     let(:price_units) { { 4 => 7, 1 => 2 } }
     let(:price_map) do
-      instance_double(PriceMap, get_price_for: nil )
+      instance_double(PriceMap, price_for: nil )
     end
 
-    let(:cart) { instance_double(Cart, get_volume_for: 10, get_all_products: ["A", "B"] ) }
+    let(:cart) { instance_double(Cart, volume_for: 10, all_products: ["A", "B"] ) }
 
     subject { Calculator.new(price_map, cart) }
 
@@ -23,16 +23,16 @@ module CheckoutTerminal
 
       context 'when the product exists in the system' do
         before do
-          allow(price_map).to receive(:get_price_for).and_return(price_units)
+          allow(price_map).to receive(:price_for).and_return(price_units)
         end
 
         it "gets all the price units from price_map" do
-          expect(price_map).to receive(:get_price_for).with("A")
+          expect(price_map).to receive(:price_for).with("A")
           subject.calculate_for("A")
         end
 
         it "gets the volume of the product in the cart" do
-          expect(cart).to receive(:get_volume_for).with("A")
+          expect(cart).to receive(:volume_for).with("A")
           subject.calculate_for("A")
         end
 

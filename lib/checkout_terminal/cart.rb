@@ -3,18 +3,18 @@ module CheckoutTerminal
     attr_reader :container
 
     def initialize
-      @container = {}
+      @container = Hash.new(0)
     end
 
-    def add(item)
-      @container[item] = @container[item].nil? ? 1 : @container[item] + 1
+    def add(product)
+      @container[product] = @container[product] + 1
     end
 
-    def get_volume_for(item)
-      @container[item]
+    def volume_for(product)
+      @container[product]
     end
 
-    def get_all_products
+    def all_products
       @container.keys
     end
   end

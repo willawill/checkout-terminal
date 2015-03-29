@@ -7,11 +7,11 @@ module CheckoutTerminal
     end
 
     def calculate_for(product)
-      raise "Product #{product} doesn't exist" if @price_map.get_price_for(product).nil?
+      raise "Product #{product} doesn't exist" if @price_map.price_for(product).nil?
 
       result = 0
-      prices = @price_map.get_price_for(product)
-      volume = @cart.get_volume_for(product)
+      prices = @price_map.price_for(product)
+      volume = @cart.volume_for(product)
       prices.each do |unit, price|
         result += price * (volume / unit)
         volume = volume % unit
@@ -20,7 +20,7 @@ module CheckoutTerminal
     end
 
     def calculate_total
-      @cart.get_all_products.inject(0) { |acc, product| acc += calculate_for(product) }
+      @cart.all_products.inject(0) { |acc, product| acc += calculate_for(product) }
     end
   end
 end

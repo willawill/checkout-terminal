@@ -37,7 +37,7 @@ module CheckoutTerminal
     describe "#scan_item" do
       it "reads a stream of items and add to the cart" do
         subject.set_cart(item_list)
-        expect(subject.cart.get_volume_for("C")).to eq(7)
+        expect(subject.cart.volume_for("C")).to eq(7)
       end
     end
 

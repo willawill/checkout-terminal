@@ -31,11 +31,11 @@ module CheckoutTerminal
       end
     end
 
-    describe "#get_price_for" do
+    describe "#price_for" do
       it "returns the hash of all the prices" do
         subject.add(price_item_for_A)
 
-        expect(subject.get_price_for("A")).to eq({ 3 => 5 })
+        expect(subject.price_for("A")).to eq({ 3 => 5 })
       end
     end
   end

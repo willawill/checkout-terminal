@@ -12,7 +12,7 @@ module CheckoutTerminal
       @container[product.product_code] = sort_by_bulk(product)
     end
 
-    def get_price_for(product)
+    def price_for(product)
       @container[product]
     end
 
