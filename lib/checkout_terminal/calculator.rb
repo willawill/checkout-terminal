@@ -23,7 +23,7 @@ module CheckoutTerminal
     end
 
     def calculate_total
-      @cart.all_products.inject(0) { |acc, product| acc += calculate_for(product) }
+      @cart.all_products.reduce(0) { |acc, product|  acc + calculate_for(product) }
     end
   end
 end

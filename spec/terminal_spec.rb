@@ -1,7 +1,7 @@
 module CheckoutTerminal
   RSpec.describe Terminal do
     let(:price_input) do
-      %Q{ A|1|2
+      %{ A|1|2
           B|1|12
           A|4|7
           C|1|1.25
@@ -42,12 +42,11 @@ module CheckoutTerminal
     end
 
     describe "#checkout" do
-       {
-        %Q{C\nC\nC\nC\nC\nC\nC\n}=> 7.25,
-        %Q{A\nB\nC\nD\nA\nB\nA\nA\n} => 32.40,
-        %Q{A\nB\nC\nD\n} => 15.40,
-        %Q{} => 0 }
-        .each do |item_list, total_price|
+      {
+        %{C\nC\nC\nC\nC\nC\nC\n} => 7.25,
+        %{A\nB\nC\nD\nA\nB\nA\nA\n} => 32.40,
+        %{A\nB\nC\nD\n}  => 15.40,
+        %{} => 0 }.each do |item_list, total_price|
         it "returns the total price for the list of #{item_list.split("\n").join("")}" do
           subject.set_price(price_input)
           subject.set_cart(item_list)
