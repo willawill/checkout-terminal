@@ -18,7 +18,7 @@ module CheckoutTerminal
 
     describe "#calculate_for" do
       it "raises an exception when the product doesn't exist" do
-        expect{ subject.calculate_for("FOO") }.to raise_error("Product doesn't exist")
+        expect{ subject.calculate_for("FOO") }.to raise_error("Product FOO doesn't exist")
       end
 
       context 'when the product exists in the system' do

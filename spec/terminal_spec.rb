@@ -17,7 +17,7 @@ module CheckoutTerminal
       }
     end
 
-    let(:item_list) { "CCCCCCC" }
+    let(:item_list) { "C\nC\nC\nC\nC\nC\nC\n" }
 
     describe "#initialize" do
       it "has a PriceMap, Cart" do
@@ -42,9 +42,10 @@ module CheckoutTerminal
     end
 
     describe "#checkout" do
-       { "CCCCCCC" => 7.25,
-            "ABCDABAA" => 32.40,
-            "ABCD" => 15.40 }
+       {
+        %Q{C\nC\nC\nC\nC\nC\nC\n}=> 7.25,
+        %Q{A\nB\nC\nD\nA\nB\nA\nA\n} => 32.40,
+        %Q{A\nB\nC\nD\n} => 15.40 }
         .each do |item_list, total_price|
         it "returns the total price for the list of #{item_list}" do
           subject.set_price(price_input)
