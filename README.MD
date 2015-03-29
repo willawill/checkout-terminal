@@ -1,5 +1,7 @@
 #Checkout Terminal
 
+
+
 TODO:
 1. Logging system.
 2. Better documentation.

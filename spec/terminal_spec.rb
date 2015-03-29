@@ -47,7 +47,7 @@ module CheckoutTerminal
         %Q{A\nB\nC\nD\nA\nB\nA\nA\n} => 32.40,
         %Q{A\nB\nC\nD\n} => 15.40 }
         .each do |item_list, total_price|
-        it "returns the total price for the list of #{item_list}" do
+        it "returns the total price for the list of #{item_list.split("\n").join("")}" do
           subject.set_price(price_input)
           subject.set_cart(item_list)
           total = subject.checkout
